@@ -555,8 +555,8 @@ func (c *CosmosChain) GetBalance(ctx context.Context, address string, denom stri
 }
 
 // AllBalances fetches an account address's balance for all denoms it holds
-func (c *CosmosChain) AllBalances(ctx context.Context, address string) (types.Coins, error) {
-	params := bankTypes.QueryAllBalancesRequest{Address: address}
+func (c *CosmosChain) AllBalances(ctx context.Context, address string, resolveDenom bool) (types.Coins, error) {
+	params := bankTypes.QueryAllBalancesRequest{Address: address, ResolveDenom: resolveDenom}
 	grpcAddress := c.getFullNode().hostGRPCPort
 	conn, err := grpc.Dial(grpcAddress, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
